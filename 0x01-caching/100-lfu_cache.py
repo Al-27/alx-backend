@@ -47,7 +47,7 @@ class LFUCache(BaseCaching):
         """
         vals = list(dic.values())
         min_n = min(vals)
-        n_times = count(min_n)
+        n_times = vals.count(min_n)
         
         if n_times == 1:
             return list(test_dict)[vals.index(min_n)]
