@@ -21,11 +21,18 @@ class LFUCache(BaseCaching):
         if not (key is None or item is None):
             while len(self.cache_data) >= BaseCaching.MAX_ITEMS:
                 fo_key = self.get_lf_key(self.cache_freq)
-                if fo_key is str:
-                    #fo_key = list(self.cache_data.keys())[0]
+                if isinstance(fo_key, str):
+                    # fo_key = list(self.cache_data.keys())[0]
                     self.cache_data.pop(fo_key)
                     self.cache_freq.pop(fo_key)
                     print(f"DISCARD: {fo_key}")
+                else:
+                    for k in self.cache_data.keys():
+                        if k in fo_key:
+                            self.cache_data.pop(k)
+                            self.cache_freq.pop(k)
+                            break
+
             self.cache_data.update({key: item})
             self.cache_freq.update({key: 1})
 
@@ -37,9 +44,9 @@ class LFUCache(BaseCaching):
         value = self.cache_data.pop(key)
         self.cache_data.update({key: value})
         self.cache_freq[key] += 1
-        
+
         return self.cache_data.get(key)
-    
+
     def get_lf_key(self, dic):
         """
         return key of the item with least freq(LF)
@@ -48,7 +55,12 @@ class LFUCache(BaseCaching):
         vals = list(dic.values())
         min_n = min(vals)
         n_times = vals.count(min_n)
-        
+
         if n_times == 1:
             return list(dic)[vals.index(min_n)]
-            
+        else:
+            keys = []
+            for k, v in dic.items():
+                if v == min_n:
+                    keys.append(k)
+            return keys
