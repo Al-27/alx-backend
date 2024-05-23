@@ -22,7 +22,7 @@ class LFUCache(BaseCaching):
             while len(self.cache_data) >= BaseCaching.MAX_ITEMS:
                 fo_key = self.get_lf_key(self.cache_freq)
                 if isinstance(fo_key, list):
-                    for k in list(self.cache_data.keys())[::-1]:
+                    for k in self.cache_data.keys():
                         if k in fo_key:
                             fo_key = k
                             break
