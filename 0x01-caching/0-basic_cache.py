@@ -11,7 +11,7 @@ class BasicCache(BaseCaching):
     def __init__(self):
         """func
         """
-        super()
+        super.__init__()
         self.MAX_ITEMS = 99999
     
     def put(self, key, item):
