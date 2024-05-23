@@ -21,17 +21,14 @@ class LFUCache(BaseCaching):
         if not (key is None or item is None):
             while len(self.cache_data) >= BaseCaching.MAX_ITEMS:
                 fo_key = self.get_lf_key(self.cache_freq)
-                if isinstance(fo_key, str):
-                    # fo_key = list(self.cache_data.keys())[0]
-                    self.cache_data.pop(fo_key)
-                    self.cache_freq.pop(fo_key)
-                    print(f"DISCARD: {fo_key}")
-                else:
-                    for k in self.cache_data.keys():
+                if isinstance(fo_key, list):
+                    for k in list(self.cache_data.keys())[::-1]:
                         if k in fo_key:
-                            self.cache_data.pop(k)
-                            self.cache_freq.pop(k)
+                            fo_key = k
                             break
+                self.cache_data.pop(fo_key)
+                self.cache_freq.pop(fo_key)
+                print(f"DISCARD: {fo_key}")
 
             self.cache_data.update({key: item})
             self.cache_freq.update({key: 1})
