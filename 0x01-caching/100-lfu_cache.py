@@ -41,6 +41,10 @@ class LFUCache(BaseCaching):
         return self.cache_data.get(key)
     
     def get_lf_key(self, dic):
+        """
+        return key of the item with least freq(LF)
+        return list of keys if there more than one item with LF
+        """
         vals = list(dic.values())
         min_n = min(vals)
         n_times = count(min_n)
