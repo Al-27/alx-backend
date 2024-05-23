@@ -50,5 +50,5 @@ class LFUCache(BaseCaching):
         n_times = vals.count(min_n)
         
         if n_times == 1:
-            return list(test_dict)[vals.index(min_n)]
+            return list(dic)[vals.index(min_n)]
             
