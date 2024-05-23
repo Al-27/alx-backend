@@ -4,7 +4,7 @@
 BaseCaching = __import__("base_caching").BaseCaching
 
 
-class FIFOCache(BaseCaching):
+class LIFOCache(BaseCaching):
     """
     class doc
     """
@@ -18,10 +18,9 @@ class FIFOCache(BaseCaching):
         """func
         """
         if not (key is None or item is None):
-            if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-                fo_key = list(self.cache_data.keys())[0]
-                self.cache_data.pop(fo_key)
-                print(f"DISCARD: {fo_key}")
+            while len(self.cache_data) >= BaseCaching.MAX_ITEMS:
+                k, v = self.cache_data.popitem()
+                print(f"DISCARD: {k}")
             self.cache_data.update({key: item})
 
     def get(self, key):

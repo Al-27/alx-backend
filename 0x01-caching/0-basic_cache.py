@@ -3,23 +3,24 @@
 """
 BaseCaching = __import__("base_caching").BaseCaching
 
+
 class BasicCache(BaseCaching):
     """
     class doc
     """
-    
-    def __init__(self,*args, **kwargs):
+
+    def __init__(self, *args, **kwargs):
         """func
         """
         super().__init__(*args, **kwargs)
         self.MAX_ITEMS = 99999
-    
+
     def put(self, key, item):
         """func
         """
         if not (key is None or item is None):
             self.cache_data.update({key: item})
-    
+
     def get(self, key):
         """func
         """
