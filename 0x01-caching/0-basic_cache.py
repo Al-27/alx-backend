@@ -18,7 +18,7 @@ class BasicCache(BaseCaching):
         """func
         """
         if not (key is None or item is None):
-            self.cache_data.update({key,item})
+            self.cache_data[key] = item 
     
     def get(self, key):
         """func
